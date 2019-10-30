@@ -37,8 +37,6 @@ spec:
   - name: helmos
     image: maord/helmos
     volumeMounts:
-        # - name: chart-folder
-        #   mountPath: /home/docker/chart
         - name: chart
           mountPath: /home/docker/chart/Chart.yaml
           subPath: Chart.yaml
@@ -52,8 +50,6 @@ spec:
     - name: chart
       configMap:
         name: helmos
-    # - name: chart-folder
-    #   emptyDir: {}
 ---
 
 apiVersion: v1
