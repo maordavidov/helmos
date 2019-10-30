@@ -19,7 +19,9 @@ function pre_helm(){
 
 function helm_init(){
     return new Promise((resolve, reject) => {
-        const cmd = spawn('helm', 'init --upgrade --service-account=tiller'.split(' '));
+        const cmd = spawn('helm', 'init --upgrade --service-account=tiller'.split(' '),{
+            stdio: [process.stdin, process.stdout, process.stderr]      
+        });
 
         cmd.on('close', () => {
             resolve();
@@ -29,7 +31,9 @@ function helm_init(){
 
 function helm_dependency_build(){
     return new Promise((resolve, reject) => {
-        const cmd = spawn('helm', ['dependency', 'build', pathResover.helmChartPath()]);
+        const cmd = spawn('helm', ['dependency', 'build', pathResover.helmChartPath()],{
+            stdio: [process.stdin, process.stdout, process.stderr]      
+        });
 
         cmd.on('close', () => {
             resolve();
@@ -41,7 +45,9 @@ function helm_install(){
 
     return new Promise((resolve, reject) => {
         console.log('Installing charts... it might take a while...')
-        const cmd = spawn('helm', ['install', pathResover.helmChartPath()]);
+        const cmd = spawn('helm', ['install', pathResover.helmChartPath()],{
+            stdio: [process.stdin, process.stdout, process.stderr]      
+        });
     
         cmd.on('close', () => {
             resolve();
@@ -56,8 +62,11 @@ async function hook_add_repo() {
             return resolve();
         }
 
-        console.log('hooking repo ...')
-        const cmd = spawn('helm', `repo add ${process.env.HELMOS_HOOK_ADD_REPO__NAME} ${process.env.HELMOS_HOOK_ADD_REPO__URL}`.split(' '));
+        console.log('hooking repo ...');
+        console.log(`helm repo add ${process.env.HELMOS_HOOK_ADD_REPO__NAME} ${process.env.HELMOS_HOOK_ADD_REPO__URL}`);
+        const cmd = spawn('helm', `repo add ${process.env.HELMOS_HOOK_ADD_REPO__NAME} ${process.env.HELMOS_HOOK_ADD_REPO__URL}`.split(' '),{
+            stdio: [process.stdin, process.stdout, process.stderr]      
+        });
     
         cmd.on('close', () => {
             resolve();
