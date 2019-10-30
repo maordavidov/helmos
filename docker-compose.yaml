@@ -6,6 +6,6 @@ services:
       context: .
       dockerfile: ./Dockerfile
       args:
-        USER: kuku
+        USER: docker
     volumes:
-      - ./examples/charts/demo:/home/kuku/chart
+      - ./examples/charts/demo:/home/docker/chart
