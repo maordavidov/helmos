@@ -6,7 +6,7 @@ function pre_helm(){
     return new Promise((resolve, reject) => { 
         console.log('creating tiller pre requesites on cluster...')
 
-        const tiller_prereq = pathResover.templatePath('kubernetes', 'tiller.yaml');
+        const tiller_prereq = pathResover.templatePath('tiller.yaml');
         const cmd = spawn('kubectl', `apply -f ${tiller_prereq}`.split(' '),{
             stdio: [process.stdin, process.stdout, process.stderr]      
         });
