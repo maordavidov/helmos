@@ -36,7 +36,6 @@ spec:
   containers:
   - name: helmos
     image: maord/helmos
-    command: ["tail" ,"-f", "/dev/null"]
     volumeMounts:
         # - name: chart-folder
         #   mountPath: /home/docker/chart
