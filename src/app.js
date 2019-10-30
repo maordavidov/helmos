@@ -49,7 +49,7 @@ function helm_install(){
     });
 }
 
-pre_helm().
+await pre_helm().
     then(helm_init()).
     then(helm_dependency_build()).
     then(helm_install())
