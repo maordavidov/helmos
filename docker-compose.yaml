@@ -1,7 +1,11 @@
 version: '3.7'
 services:
   helmos:
-   image: helmos
-   build:
-     context: .
-     dockerfile: ./Dockerfile
+    image: helmos
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        USER: kuku
+    volumes:
+      - ./examples/charts/demo:/home/kuku/chart
