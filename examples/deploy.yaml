@@ -38,12 +38,23 @@ spec:
     image: maord/helmos
     command: ["tail" ,"-f", "/dev/null"]
     volumeMounts:
-        - name: chart
+        - name: chart-folder
           mountPath: /home/docker/chart
+        - name: chart
+          mountPath: /home/docker/chart/Chart.yaml
+          subPath: Chart.yaml
+        - name: chart
+          mountPath: /home/docker/chart/values.yaml
+          subPath: values.yaml
+        - name: chart
+          mountPath: /home/docker/chart/requirements.yaml
+          subPath: requirements.yaml
   volumes:
     - name: chart
       configMap:
         name: helmos
+    - name: chart-folder
+      emptyDir: {}
 ---
 
 apiVersion: v1
