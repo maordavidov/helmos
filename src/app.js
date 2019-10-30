@@ -49,7 +49,29 @@ function helm_install(){
     });
 }
 
-pre_helm().
-    then(helm_init()).
-    then(helm_dependency_build()).
-    then(helm_install())
+async function hook_add_repo() {
+    return new Promise((resolve, reject) => {
+
+        if (!process.env.HELMOS_HOOK_ADD_REPO__NAME || !process.env.HELMOS_HOOK_ADD_REPO__URL) {
+            return resolve();
+        }
+
+        console.log('hooking repo ...')
+        const cmd = spawn('helm', `repo add ${process.env.HELMOS_HOOK_ADD_REPO__NAME} ${process.env.HELMOS_HOOK_ADD_REPO__URL}`.split(' '));
+    
+        cmd.on('close', () => {
+            resolve();
+        });
+    });
+}
+
+
+async function run() {
+    await pre_helm();
+    await helm_init();
+    await hook_add_repo();
+    await helm_dependency_build();
+    await helm_install();
+}
+
+run();

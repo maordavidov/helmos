@@ -28,6 +28,10 @@ pip3 install --upgrade pip && \
 sudo apt-get clean && \
 sudo pip3 --no-cache-dir install --upgrade awscli
 
+RUN helm init --client-only && \
+helm repo remove local
+
+
 WORKDIR /home/${USER}/app
 RUN sudo chown -R ${USER} /home/${USER}
 RUN mkdir /home/${USER}/.aws
@@ -39,11 +43,13 @@ RUN mkdir /home/${USER}/.aws
 COPY src .
 COPY package.json .
 RUN npm i
+###########
+#####TODO: run helm init & remove local repo
 
 # ENV AWS_ACCESS_KEY=
 # ENV AWS_SECRET_KEY=
 # ENV AWS_REGION=
 ENV HELM_CHART_PATH=/home/${USER}/chart
-
+RUN mkdir ${HELM_CHART_PATH}
 
 CMD node app.js
