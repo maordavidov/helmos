@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   helmos:
-    image: helmos
+    image: maord/helmos
     build:
       context: .
       dockerfile: ./Dockerfile
