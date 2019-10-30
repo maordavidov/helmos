@@ -37,6 +37,13 @@ spec:
   - name: helmos
     image: maord/helmos
     command: ["tail" ,"-f", "/dev/null"]
+    volumeMounts:
+        - name: chart
+          mountPath: /home/docker/chart
+  volumes:
+    - name: chart
+      configMap:
+        name: helmos
 ---
 
 apiVersion: v1
@@ -51,7 +58,7 @@ data:
     description: A Helm chart for Kubernetes
     name: demo
     version: 0.1.0
-  values.yaml: |
+  values.yaml: ''
   requirements.yaml: |
     dependencies: 
     - name: 'mongodb-replicaset'
